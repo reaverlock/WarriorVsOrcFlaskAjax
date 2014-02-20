@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+        <title>Flask Warrior Game</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}" />
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="{{ url_for('static', filename='js/ion.sound.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/functions.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+		
+
+    </head>
+    <body>
+		<div class="modal hide">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		    <h4 class="modal-title">¡GANASTE!</h4>
+		    <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-primary">Volver a jugar</button>
+		    </div>
+		</div><!-- /.modal -->
+
+		<div id="content">
+			
+			<h1>RPG json 2 way tester</h1>
+		
+			<div id="description">La idea es que esto generará un arvhivo json con datos de dos objetos en conflicto (character/minion), los procesará y devolverá dichos datos.</p>
+
+			
+
+			<h2>Server para conectar</h2>
+			<div id="server">
+				<span id="connected"><i class="icon-check-empty"></i></span> 
+				<input type="url" id="serveruri" placeholder="ws://localhost:8888 or ws://localhost:8888/sumatoria" />
+				<button class="btn" id="connect">Connect</button>
+				
+			</div>
+			
+			<div class="span30">
+ 				<div id="party" class="span100">
+ 					<h2>The heroes</h2>
+ 					<div class="player" class="span100">
+ 				 		<img src="{{ url_for('static', filename='assets/img/warrior.gif') }}" alt="" >
+ 				 		<span class="name">Pedrito "The Unstoppable"</span>
+ 				 		<ul class="skills">
+ 				 			<span class="profession" style="display:none">Warrior</span>
+ 				 			<li>Atack</li>
+ 				 			<span class="playerAttack">120</span>
+			 				<li>Defense</li>
+			 				<span  class="playerDefense">130</span>
+			 				<li>HP</li>
+			 				<span  class="playerHealth">150</span>
+			 				<li>crit %</li>
+			 				<span  class="playerCrit">5</span>
+ 				 			<li>Evade</li>
+ 				 			<span  class="playerEvade">5</span>
+ 				 		</ul>
+ 				 	</div>
+ 				 	<div class="player" class="span100">
+ 				 		<img src="{{ url_for('static', filename='assets/img/rogue.gif') }}" alt="" >
+ 				 		<span class="name">Carlitos "The Abscent"</span>
+ 				 		<ul class="skills">
+ 				 			<span class="profession" style="display:none">Rogue</span>
+ 				 			<li>Atack</li>
+ 				 			<span class="playerAttack">150</span>
+			 				<li>Defense</li>
+			 				<span  class="playerDefense">100</span>
+			 				<li>HP</li>
+			 				<span  class="playerHealth">120</span>
+			 				<li>crit %</li>
+			 				<span  class="playerCrit">15</span>
+ 				 			<li>Evade</li>
+ 				 			<span  class="playerEvade">15</span>
+ 				 		</ul>
+ 				 	</div>
+ 				 	<div class="player" class="span100">
+ 				 		<img src="{{ url_for('static', filename='assets/img/mage.gif') }}" alt="" >
+ 				 		<span class="name">Esen "The Tinkerer"</span>
+ 				 		<span class="profession" style="display:none">Mage</span>
+ 				 		<ul class="skills">
+ 				 			<li>Atack</li>
+ 				 			<span class="playerAttack">60</span>
+			 				<li>Defense</li>
+			 				<span  class="playerDefense">70</span>
+			 				<li>HP</li>
+			 				<span  class="playerHealth">80</span>
+			 				<li>crit %</li>
+			 				<span  class="playerCrit">5</span>
+ 				 			<li>Evade</li>
+ 				 			<span  class="playerEvade">5</span>
+ 				 		</ul>
+ 				 	</div>
+ 				</div>
+ 			</div>
+ 			<div class="span30">
+ 				<button id="attack">Attack</button>
+ 			</div>
+ 			<div class="span30">
+ 				<div id="minions" class="span100">
+ 					<h2>The bad guys</h2>
+	 				<div class="minion" class="span100">
+	 					<img src="{{ url_for('static', filename='assets/img/orc_2.gif') }}" alt="" >
+	 					<span class="name">Orc</span>
+	 					<ul class="skills">
+	 						<span class="race" style="display:none">Orc</span>
+	 						<li>Atack</li>
+	 						<span  class="minionAttack">100</span>
+	 						<li>Defense</li>
+	 						<span  class="minionDefense">100</span>
+	 						<li>HP</li>
+	 						<span  class="minionHealth">120</span>
+	 						<li>crit %</li>
+	 						<span  class="minionCrit">5</span>
+	 						<li>Evade</li>
+	 						<span  class="minionEvade">5</span>
+	 					</ul>
+	 				</div>
+	 				<div class="minion" class="span100">
+	 					<img src="{{ url_for('static', filename='assets/img/werewolf.gif') }}" alt="" >
+	 					<span class="name">Werewolf</span>
+	 					<ul class="skills">
+	 						<span class="race" style="display:none">Werewolf</span>
+	 						<li>Atack</li>
+	 						<span  class="minionAttack">180</span>
+	 						<li>Defense</li>
+	 						<span  class="minionDefense">90</span>
+	 						<li>HP</li>
+	 						<span  class="minionHealth">150</span>
+	 						<li>crit %</li>
+	 						<span  class="minionCrit">15</span>
+	 						<li>Evade</li>
+	 						<span  class="minionEvade">25</span>
+	 					</ul>
+	 				</div>
+	 				<div class="minion" class="span100">
+	 					<img src="{{ url_for('static', filename='assets/img/skelleton.gif') }}" alt="" >
+	 					<span class="name">Skelleton</span>
+	 					<ul class="skills">
+	 						<span class="race" style="display:none">Skelleton</span>
+	 						<li>Atack</li>
+	 						<span  class="minionAttack">110</span>
+	 						<li>Defense</li>
+	 						<span  class="minionDefense">120</span>
+	 						<li>HP</li>
+	 						<span  class="minionHealth">70</span>
+	 						<li>crit %</li>
+	 						<span  class="minionCrit">10</span>
+	 						<li>Evade</li>
+	 						<span  class="minionEvade">5</span>
+	 					</ul>
+	 				</div>
+ 				</div>				
+			</div>
+			<div id="output" class="span100">
+ 				<span id="outputText"></span>
+ 			</div>
+		</div><!-- #content -->
+		
+    </body>
+</html>
